@@ -3,8 +3,8 @@ from random import randrange
 
 from parameterized import parameterized
 
-from delivery_cost import (calculate_shipping_cost,
-                           MINIMAL_PRICE, ShippingUnavailableError)
+from calculate_shipping import (calculate_shipping_cost,
+                                MINIMAL_PRICE, ShippingUnavailableError)
 
 
 class TestShippingCost(unittest.TestCase):
@@ -20,8 +20,8 @@ class TestShippingCost(unittest.TestCase):
     def test_distance(self, distance, dimensions,
                       is_fragile, service_workload, expected):
 
-        self.assertEqual(calculate_shipping_cost(distance, dimensions,
-                                                 is_fragile, service_workload), expected)
+        self.assertEqual(calculate_shipping_cost(
+            distance, dimensions, is_fragile, service_workload), expected)
 
     @parameterized.expand([
         [randrange(31, 100), 'small', False, 'high', 560],
@@ -29,8 +29,8 @@ class TestShippingCost(unittest.TestCase):
     ])
     def test_dimensions(self, distance, dimensions,
                         is_fragile, service_workload, expected):
-        self.assertEqual(calculate_shipping_cost(distance, dimensions,
-                                                 is_fragile, service_workload), expected)
+        self.assertEqual(calculate_shipping_cost(
+            distance, dimensions, is_fragile, service_workload), expected)
 
     @parameterized.expand([
         [randrange(11, 31), 'large', True, 'normal', 700],
@@ -40,16 +40,16 @@ class TestShippingCost(unittest.TestCase):
     ])
     def test_workload(self, distance, dimensions,
                       is_fragile, service_workload, expected):
-        self.assertEqual(calculate_shipping_cost(distance, dimensions,
-                                                 is_fragile, service_workload), expected)
+        self.assertEqual(calculate_shipping_cost(
+            distance, dimensions, is_fragile, service_workload), expected)
 
     @parameterized.expand([
         [1, 'small', False, 'normal', MINIMAL_PRICE],
     ])
     def test_minimal_price(self, distance, dimensions,
                            is_fragile, service_workload, expected):
-        self.assertEqual(calculate_shipping_cost(distance, dimensions,
-                                                 is_fragile, service_workload), MINIMAL_PRICE)
+        self.assertEqual(calculate_shipping_cost(
+            distance, dimensions, is_fragile, service_workload), MINIMAL_PRICE)
 
     def test_calculate_fragile(self):
         with self.assertRaises(ShippingUnavailableError):
@@ -62,5 +62,5 @@ class TestShippingCost(unittest.TestCase):
     ])
     def test_calculate_fragile(self, distance, dimensions,
                                is_fragile, service_workload, expected):
-        self.assertEqual(calculate_shipping_cost(distance, dimensions,
-                                                 is_fragile, service_workload), expected)
+        self.assertEqual(calculate_shipping_cost(
+            distance, dimensions, is_fragile, service_workload), expected)

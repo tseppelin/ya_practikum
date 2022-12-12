@@ -20,6 +20,7 @@ DIMENSIONS_COST = {
 
 IS_FRAGILE_COST = 300
 
+
 WORKLOAD_COEF = {
     'extremely high': 1.6,
     'high': 1.4,
